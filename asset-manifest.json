@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/my-fav-repos/static/js/main.b743edb3.js",
+    "main.js": "/my-fav-repos/static/js/main.e0f07c1f.js",
     "index.html": "/my-fav-repos/index.html",
-    "main.b743edb3.js.map": "/my-fav-repos/static/js/main.b743edb3.js.map"
+    "main.e0f07c1f.js.map": "/my-fav-repos/static/js/main.e0f07c1f.js.map"
   },
   "entrypoints": [
-    "static/js/main.b743edb3.js"
+    "static/js/main.e0f07c1f.js"
   ]
 }
