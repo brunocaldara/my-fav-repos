@@ -112,7 +112,7 @@ const Repositorie = () => {
 
     return (
         <Container>
-            <BackButton to='/'>
+            <BackButton to='/my-fav-repos/'>
                 <FaArrowLeft color='#0D2636' size={30} />
             </BackButton>
             <Owner>

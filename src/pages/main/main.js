@@ -102,7 +102,7 @@ const Main = () => {
                             </DeleteButton>
                             {repo.name}
                         </span>
-                        <Link to={`/repositorie/${encodeURIComponent(repo.name)}`}>
+                        <Link to={`/my-fav-repos/repositorie/${encodeURIComponent(repo.name)}`}>
                             <FaBars size={20} />
                         </Link>
                     </li>
