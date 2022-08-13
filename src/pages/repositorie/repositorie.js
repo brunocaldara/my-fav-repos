@@ -7,7 +7,7 @@ import {
 import { FaArrowLeft } from 'react-icons/fa';
 import api from '../../services/api';
 
-const Repositorie = ({ }) => {
+const Repositorie = () => {
     const [repositorie, setRepositorie] = useState({});
     const [issues, setIssues] = useState([]);
     const [loading, setLoading] = useState(true);
