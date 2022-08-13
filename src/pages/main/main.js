@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { FaGithub, FaPlus, FaSpinner } from 'react-icons/fa';
-import { Container, Form, SubmitButton } from './styles';
+import { FaGithub, FaPlus, FaSpinner, FaBars, FaTrash } from 'react-icons/fa';
+import { Container, Form, SubmitButton, List, DeleteButton } from './styles';
+import { Link } from 'react-router-dom';
 import api from '../../services/api';
 
 const Main = () => {
@@ -11,7 +12,15 @@ const Main = () => {
 
     useEffect(() => {
         searchRepoRef.current.focus();
+
+        const reposStorage = localStorage.getItem('repos');
+
+        if (reposStorage) setRepositories(JSON.parse(reposStorage));
     }, []);
+
+    useEffect(() => {
+        if (repositories.length > 0) localStorage.setItem('repos', JSON.stringify(repositories));
+    }, [repositories]);
 
     const handleChangeRepo = (evt) => {
         setSearchRepo(evt.target.value);
@@ -24,13 +33,17 @@ const Main = () => {
             setLoading(true);
 
             try {
-                const resp = await api.get(`repos/${searchRepo}`);
+                const hasRepo = repositories.find(repo => repo.name === searchRepo);
 
-                const data = {
-                    name: resp.data.full_name
+                if (!hasRepo) {
+                    const resp = await api.get(`repos/${searchRepo}`);
+
+                    const data = {
+                        name: resp.data.full_name
+                    }
+
+                    setRepositories([...repositories, data]);
                 }
-
-                setRepositories([...repositories, data]);
                 setSearchRepo('');
                 searchRepoRef.current.focus();
             } catch (err) {
@@ -45,11 +58,16 @@ const Main = () => {
 
     }, [searchRepo, repositories]);
 
+    const handleDelete = useCallback((repo) => {
+        const filteredRepos = repositories.filter(r => r.name !== repo.name);
+        setRepositories(filteredRepos);
+    }, [repositories]);
+
     return (
         <Container>
             <h1>
                 <FaGithub size={25} />
-                My Repositories
+                My Favorites Repositories
             </h1>
 
             <Form onSubmit={handleSubmit}>
@@ -74,6 +92,22 @@ const Main = () => {
                     }
                 </SubmitButton>
             </Form>
+
+            <List>
+                {repositories.map(repo => (
+                    <li key={repo.name}>
+                        <span>
+                            <DeleteButton>
+                                <FaTrash size={14} onClick={() => handleDelete(repo)} />
+                            </DeleteButton>
+                            {repo.name}
+                        </span>
+                        <Link to={`/repositorie/${encodeURIComponent(repo.name)}`}>
+                            <FaBars size={20} />
+                        </Link>
+                    </li>
+                ))}
+            </List>
         </Container>
     )
 };

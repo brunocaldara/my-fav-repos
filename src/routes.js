@@ -7,7 +7,7 @@ const AppRoutes = () => (
     <BrowserRouter>
         <Routes>
             <Route path='/' element={<Main />} exact />
-            <Route path='/repositorie' element={<Repositorie />} />
+            <Route path='/repositorie/:name' element={<Repositorie />} />
         </Routes>
     </BrowserRouter>
 )
